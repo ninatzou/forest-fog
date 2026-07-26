@@ -14,7 +14,11 @@ function spark(x,y){for(let i=0;i<8;i++)pts.push({x,y,vx:(Math.random()-.5)*3,vy
 function erase(x,y){ctx.globalCompositeOperation='destination-out';ctx.lineWidth=160;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(last.x,last.y);ctx.lineTo(x,y);ctx.stroke();ctx.beginPath();ctx.arc(x,y,80,0,6.28);ctx.fill();last={x,y};spark(x,y);update();}
 function update(){const d=ctx.getImageData(0,0,fog.width,fog.height).data;let c=0,t=0;for(let i=3;i<d.length;i+=1500){t++;if(d[i]<20)c++;}const p=Math.round(c/t*100);bar.style.width=p+'%';
 if(p>=60&&sq.style.opacity!=1){sq.style.opacity=1;story.textContent='🐿️ 你找到森林裡的小松鼠了！';}
-if(p>=80){story.textContent='✨ 因為有你，故事有了不同的結局。';btn.style.opacity=1;}
+if (p >= 80) {
+    story.textContent = '✨ 因為有你，故事有了不同的結局。';
+
+    btn.style.opacity = "1";
+    btn.style.pointerEvents = "auto";
 }
 fog.onpointerdown=e=>{down=true;last={x:e.clientX,y:e.clientY};erase(last.x,last.y)}
 fog.onpointermove=e=>{if(down)erase(e.clientX,e.clientY)}
